@@ -79,3 +79,25 @@ new_fullbath, new_halfbath
 FROM Nashville_property;
 
 SELECT * FROM nashvilleproperty;
+
+/* Now, I want to find the average of each of the columns and fix them in the value, I used in replacing the empty records
+Acreage = 99.99,    Landvalue = 0,  Buildingvalue = 1, TOTALVALUE = 0, YEARBUILT = 0, 
+ BEDROOMS = 99, Fullbath = 99, halfbath = 99 */
+
+SELECT ROUND(AVG(new_LandValue),2) FROM nashville_property WHERE Landvalue <> 0;  -- 69,068.56  d
+SELECT ROUND(AVG(new_halfbath),2) FROM nashville_property WHERE new_halfbath <> 99; -- 0.28; d
+SELECT ROUND(AVG(new_fullbath),2) FROM nashville_property WHERE new_fullbath <> 99;  -- 1.89 d
+SELECT ROUND(AVG(new_bedrooms),2) FROM nashville_property WHERE new_bedrooms <> 99;  -- 3.09 d
+SELECT ROUND(AVG(new_totalValue),2) FROM nashville_property WHERE new_Totalvalue <> 0;  -- 232,375.40 d
+SELECT ROUND(AVG(new_buildingvalue),2) FROM nashville_property WHERE new_buildingvalue <> 1;  -- 160,784.68 d
+SELECT ROUND(AVG(Acreage),2) FROM nashville_property WHERE new_acreage <> 99.99;  -- 0.5
+
+SELECT* FROM nashville_property  where new_acreage = 99.99;
+/* Now, what I need do is to use ALTER statement to replace my values with their respective averages */
+UPDATE nashville_property
+SET new_acreage = 0.5
+where new_acreage = 99.99;
+
+SELECT * FROM nashvilleproperty; 
+
+
